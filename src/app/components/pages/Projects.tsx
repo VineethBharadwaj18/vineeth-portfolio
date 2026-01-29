@@ -4,6 +4,16 @@ import { useInView } from 'react-intersection-observer';
 import { ExternalLink, Github } from 'lucide-react';
 import WhatsAppButton from '../WhatsAppButton';
 
+interface Project {
+  title: string;
+  description: string;
+  tags: string[];
+  link: string;
+  github: string;
+  image: string;
+  webviewUrl?: string;
+}
+
 interface ProjectsProps {
   isDark: boolean;
 }
@@ -11,7 +21,7 @@ interface ProjectsProps {
 export default function Projects({ isDark }: ProjectsProps) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
-  const projects = [
+  const projects: Project[] = [
     {
       title: 'Weather App',
       description: 'A real-time weather application with location-based forecasts, interactive maps, and detailed weather analytics.',
@@ -87,10 +97,8 @@ export default function Projects({ isDark }: ProjectsProps) {
               >
                 {/* Project Image or Webview */}
                 <div className={`relative h-48 overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-gray-200'}`}>
-                  {/* @ts-ignore */}
                   {project.webviewUrl ? (
                     <iframe
-                      // @ts-ignore
                       src={project.webviewUrl}
                       className="w-full h-full border-none pointer-events-none"
                       title={project.title}
